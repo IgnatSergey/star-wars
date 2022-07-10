@@ -4,8 +4,8 @@ import { PlanetsComponent } from './planets/planets.component';
 import { PlanetPageComponent } from "./planet-page/planet-page.component";
 
 const appRoutes: Routes = [
-  { path: 'planets', component: PlanetsComponent},
-  { path: 'planets/:id', component: PlanetPageComponent}
+  { path: '', component: PlanetsComponent},
+  { path: ':id', component: PlanetPageComponent}
 ];
 
 @NgModule({
