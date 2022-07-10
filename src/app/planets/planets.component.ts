@@ -1,27 +1,10 @@
-import { Component, OnInit, Injectable } from '@angular/core';
-import { PlanetsService } from './planets.service';
-
-export interface DataPlanet {
-  next: string;
-  planets: object[];
-}
-
-interface Planet {
-  name: string;
-  rotation_period: string;
-  orbital_period: string;
-  diameter: string;
-  climate: string;
-  gravity: string;
-  terrain: string;
-  surface_water: string;
-  population: string;
-  residents: Array<string>;
-  films: Array<string>;
-  created: string;
-  edited: string;
-  url: string;
-}
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import {
+  PlanetsService,
+  DataPartPlanet,
+  Planet,
+} from '../services/planets.service';
 
 @Component({
   selector: 'app-planets',
@@ -29,19 +12,24 @@ interface Planet {
   styleUrls: ['./planets.component.scss'],
 })
 export class PlanetsComponent implements OnInit {
-  private url = 'https://swapi.dev/api/planets/?page=1';
-
   constructor(private planetsService: PlanetsService) {}
+  url = 'https://swapi.dev/api/planets/';
+  isLoadingError: boolean = false;
 
-  dataPlanets: Array<any>=[];
+  dataPlanets: Array<Planet> = [];
 
   getAllPlanets(url: string) {
-    this.planetsService.getPartPlanets(url).subscribe((response: any) => {
-      if (response.next !== null) {
-        this.getAllPlanets(response.next);
+    this.planetsService.getData(url).subscribe(
+      (response: DataPartPlanet) => {
+        if (response.next !== null) {
+          this.getAllPlanets(response.next);
+        }
+        this.dataPlanets = [...this.dataPlanets, ...response.results];
+      },
+      (error: HttpErrorResponse) => {
+        this.isLoadingError = true;
       }
-      this.dataPlanets = [...this.dataPlanets, ...response.planets];
-    });
+    );
   }
 
   ngOnInit(): void {

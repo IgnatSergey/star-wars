@@ -4,19 +4,17 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { PlanetsComponent } from './planets/planets.component';
-import { PlanetsService } from './planets/planets.service';
-import { FormatDataCardPipe } from './format-data-card.pipe';
 import { PlanetPageComponent } from './planet-page/planet-page.component';
+import { PlanetsService } from './services/planets.service';
+import { FormatDataCardPipe } from './pipes/format-data-card.pipe';
+import { FormatDataResidentPipe } from './pipes/format-data-resident.pipe';
 import { AppRoutingModule } from './app-routing.module';
-import { FormatDataCardPage } from './format-data-page';
-import { FormatDataResidentPipe } from './format-data-resident.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     PlanetsComponent,
     FormatDataCardPipe,
-    FormatDataCardPage,
     FormatDataResidentPipe,
     PlanetPageComponent,
   ],

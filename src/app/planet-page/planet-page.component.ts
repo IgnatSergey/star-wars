@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PlanetsService } from '../planets/planets.service';
+import { PlanetsService, Planet, Resident } from '../services/planets.service';
 
 @Component({
   selector: 'app-planet-page',
   templateUrl: './planet-page.component.html',
-  styleUrls: ['./planet-page.component.scss','../planets/planets.component.scss'],
+  styleUrls: [
+    './planet-page.component.scss',
+    '../planets/planets.component.scss',
+  ],
 })
 export class PlanetPageComponent implements OnInit {
   constructor(
@@ -13,27 +16,41 @@ export class PlanetPageComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
-  dataPlanet: any = {};
-  id: string = '';
-  residentsCurrent: any[] = [];
-  residents: any[] = [];
-  maleFilter: string = '';
+  dataPlanet: Planet;
+  id: string;
+  residentsCurrent: Resident[];
+  residents: Resident[] = [];
+  genderFilterValue: string;
+  hasResidents: boolean = false;
+  isLoadingPlanetError: boolean = false;
+  isLoadingResidentsError: boolean = false;
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
     this.planetsService
-      .getOneData(`https://swapi.dev/api/planets/${this.id}`)
-      .subscribe((response: any) => {
-        this.dataPlanet = response;
-        response.residents.map((item: string) => {
-          this.planetsService.getOneData(item).subscribe((response: any) => {
-            this.residents = [...this.residents, response];
-            this.residentsCurrent = this.residents.slice();
+      .getData(`https://swapi.dev/api/planets/${this.id}`)
+      .subscribe(
+        (response: Planet) => {
+          this.dataPlanet = response;
+          if (response.residents.length !== 0) {
+            this.hasResidents = true;
+          }
+          response.residents.map((item: string) => {
+            this.planetsService.getData(item).subscribe(
+              (response: Resident) => {
+                this.residents = [...this.residents, response];
+                this.residentsCurrent = this.residents.slice();
+              },
+              (error) => {
+                this.isLoadingResidentsError = true;
+              }
+            );
           });
-        });
-      });
-
-    console.log(this.dataPlanet);
+        },
+        (error) => {
+          this.isLoadingPlanetError = true;
+        }
+      );
   }
 
   filter(male: HTMLInputElement) {
@@ -44,7 +61,5 @@ export class PlanetPageComponent implements OnInit {
     this.residentsCurrent = this.residents.filter((item) => {
       return item.gender === male.value;
     });
-
-    console.log(male.value);
   }
 }

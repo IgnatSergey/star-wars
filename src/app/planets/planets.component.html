@@ -1,3 +1,4 @@
+<p class="loading-error" *ngIf="isLoadingError">data loading error</p>
 <ul class="planet-card__list">
   <li *ngFor="let planet of dataPlanets; let id = index" class="planet-card__item">
     <a class="planet-card__link" [routerLink] = "['/planets', id + 1]">

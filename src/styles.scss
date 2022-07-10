@@ -1,7 +1,7 @@
 @font-face {
   font-family: "Oswald";
-  src: url("./assets/oswaldregular.woff2") format("woff2"),
-    url("./assets/oswaldregular.woff") format("woff");
+  src: url("./assets/fonts/oswaldregular.woff2") format("woff2"),
+    url("./assets/fonts/oswaldregular.woff") format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -32,5 +32,10 @@ body {
   font-family: "Oswald", "Arial", sans-serif;
   font-size: 16px;
   line-height: 18px;
+}
+
+.loading-error {
+  color: red;
+  font-size: 30px;
 }
 

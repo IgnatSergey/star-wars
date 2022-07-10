@@ -1,24 +1,23 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Resident } from '../services/planets.service';
 
 @Pipe({
   name: 'appFormatResidentPipe',
 })
 export class FormatDataResidentPipe implements PipeTransform {
   excludedParameters = [
-    'residents',
     'films',
     'created',
     'edited',
     'url',
-    'homeworld',
-    'films',
     'species',
     'vehicles',
     'starships',
     'name',
+    'homeworld'
   ];
 
-  transform(startData: any) {
+  transform(startData: Resident) {
     let data = Object.entries(startData);
     return data
       .filter(([parametr, value]) => {
@@ -28,18 +27,14 @@ export class FormatDataResidentPipe implements PipeTransform {
         );
       })
       .map(([parametr, value]) => {
-        if (parametr === 'rotation_period') {
-          value = value + ' hours';
-        } else if (parametr === 'orbital_period') {
-          value = value + ' days';
-        } else if (parametr === 'diameter') {
-          value = value + ' km';
-        } else if (parametr === 'gravity') {
-          value = value + ' Gs';
-        } else if (parametr === 'surface_water') {
-          value = value + ' %';
+        if (parametr === 'height') {
+          value = value + ' cm';
+        } else if (parametr === 'mass') {
+          value = value + ' kg';
         }
-        return [parametr[0].toUpperCase() + parametr.slice(1), value];
+        parametr = parametr[0].toUpperCase() + parametr.slice(1);
+        parametr = parametr.split('_').join(' ');
+        return [parametr, value];
       });
   }
 }

@@ -16,6 +16,15 @@
   margin-left: 40px;
 }
 
+.residents-division__filter {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.planet-page__filter-label {
+  margin-right: 30px;
+}
+
 .residents-division__title {
   margin: 0;
   margin-left: -20px;
@@ -43,3 +52,5 @@
 .planet-page__list-residents-item {
   width: 200px;
 }
+
+

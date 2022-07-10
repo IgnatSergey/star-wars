@@ -1,36 +1,52 @@
-<section class="planet-page">
-  <h1 class="planet-page__title">{{ dataPlanet.name }}</h1>
-  <dl class="planet-page__list-parametrs">
-    <div class="list-parametr__item" *ngFor="let planet of dataPlanet | appFormatDataCard">
-      <dt class="list-parametr__term">{{ planet[0]}} -</dt>
-      <dd class="list-parametr__description">{{ planet[1]}}</dd>
-    </div>
-  </dl>
-  <div class="planet-page__residents-division">
-    <h2 class="residents-division__title">Residents</h2>
-    <div>
-      <label class="planet-page__filter-label">All
-        <input name="male" type="radio" value="all" (click)="filter(radioInputAll)" #radioInputAll checked>
-      </label>
-      <label class="planet-page__filter-label">Male
-        <input name="male" type="radio" value="male" (click)="filter(radioInputMale)" #radioInputMale>
-      </label>
-      <label class="planet-page__filter-label">Female
-        <input name="male" type="radio" value="female" (click)="filter(radioInputFemale)" #radioInputFemale>
-      </label>
-      <label class="planet-page__filter-label">n/a
-        <input name="male" type="radio" value="n/a" (click)="filter(radioInputNonMale)" #radioInputNonMale>
-      </label>
-    </div>
-    <ul class="planet-page__list-residents">
-      <li class="planet-page__list-residents-item" *ngFor="let resident of residentsCurrent">
-        <h3 class="">{{ resident.name }} </h3>
-        <div class="list-parametr__item" class="planet-page__list-residents"
-          *ngFor="let residentParam of resident | appFormatResidentPipe">
-          <dt class="list-parametr__term">{{ residentParam[0]}} -</dt>
-          <dd class="list-parametr__description">{{ residentParam[1]}}</dd>
+<p class="loading-error" *ngIf="isLoadingPlanetError; else planetPage">data loading error</p>
+<ng-template #planetPage>
+  <section class="planet-page">
+    <div *ngIf="dataPlanet">
+      <h1 class="planet-page__title">{{ dataPlanet.name }}</h1>
+      <dl class="planet-page__list-parametrs">
+        <div class="list-parametr__item" *ngFor="let planet of dataPlanet | appFormatDataCard">
+          <dt class="list-parametr__term">{{ planet[0]}} -</dt>
+          <dd class="list-parametr__description">{{ planet[1]}}</dd>
         </div>
-      </li>
-    </ul>
-  </div>
-</section>
+      </dl>
+    </div>
+    <div class="planet-page__residents-division">
+      <h2 class="residents-division__title">Residents</h2>
+      <p *ngIf="!hasResidents; else filterMale">No residents</p>
+      <p class="loading-error" *ngIf="isLoadingResidentsError">data loading error</p>
+      <ng-template #filterMale>
+        <div class="residents-division__filter">
+          <div class="residents-division__filter-input-wrapper">
+            <label class="planet-page__filter-label">All
+              <input name="male" type="radio" value="all" (click)="filter(radioInputAll)" #radioInputAll checked>
+            </label>
+          </div>
+          <div class="residents-division__filter-input-wrapper">
+            <label class="planet-page__filter-label">Male
+              <input name="male" type="radio" value="male" (click)="filter(radioInputMale)" #radioInputMale>
+            </label>
+          </div>
+          <div class="residents-division__filter-input-wrapper">
+            <label class="planet-page__filter-label">Female
+              <input name="male" type="radio" value="female" (click)="filter(radioInputFemale)" #radioInputFemale>
+            </label>
+          </div>
+          <div class="residents-division__filter-input-wrapper">
+            <label class="planet-page__filter-label">n/a
+              <input name="male" type="radio" value="n/a" (click)="filter(radioInputNonMale)" #radioInputNonMale>
+            </label>
+          </div>
+        </div>
+      </ng-template>
+      <ul class="planet-page__list-residents">
+        <li class="planet-page__list-residents-item" *ngFor="let resident of residentsCurrent">
+          <h3 class="">{{ resident.name }} </h3>
+          <div class="list-parametr__item" *ngFor="let residentParam of resident | appFormatResidentPipe">
+            <dt class="list-parametr__term">{{ residentParam[0]}} -</dt>
+            <dd class="list-parametr__description">{{ residentParam[1]}}</dd>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+</ng-template>
