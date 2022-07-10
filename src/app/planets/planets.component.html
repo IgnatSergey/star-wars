@@ -1,0 +1,13 @@
+<ul class="planet-card__list">
+  <li *ngFor="let planet of dataPlanets; let id = index" class="planet-card__item">
+    <a class="planet-card__link" [routerLink] = "['/planets', id + 1]">
+      <h2 class="planet-card__title">{{planet.name}}</h2>
+      <dl class="planet-card__list-parametr">
+        <div class="list-parametr__item" *ngFor="let planet of planet | appFormatDataCard">
+          <dt class="list-parametr__term">{{ planet[0]}} -</dt>
+          <dd class="list-parametr__description">{{ planet[1]}}</dd>
+        </div>
+      </dl>
+    </a>
+  </li>
+</ul>
