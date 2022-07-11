@@ -46,6 +46,10 @@
   display: flex;
 }
 
+.list-parametr__term {
+  white-space: nowrap;
+}
+
 .list-parametr__description {
   margin: 0;
   margin-left: 5px;

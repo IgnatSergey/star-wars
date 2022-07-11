@@ -2,55 +2,7 @@
   color: white;
 }
 
-.planet-page__title {
-  font-size: 40px;
-  color: yellow;
-}
-
-.planet-page__list-parametrs {
-  margin-left: 40px;
-}
-
 .planet-page__residents-division {
   margin-top: 20px;
   margin-left: 40px;
 }
-
-.residents-division__filter {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.planet-page__filter-label {
-  margin-right: 30px;
-}
-
-.residents-division__title {
-  margin: 0;
-  margin-left: -20px;
-  margin-bottom: 20px;
-  position: relative;
-  color: #19e650;
-}
-
-.residents-division__title::after {
-  content: "";
-  position: absolute;
-  top: 12px;
-  left: 100px;
-  width: 76%;
-  height: 2px;
-  background-color: #19e650;
-}
-
-.planet-page__list-residents {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.planet-page__list-residents-item {
-  width: 200px;
-}
-
-

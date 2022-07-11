@@ -9,6 +9,8 @@ import { PlanetsService } from './services/planets.service';
 import { FormatDataCardPipe } from './pipes/format-data-card.pipe';
 import { FormatDataResidentPipe } from './pipes/format-data-resident.pipe';
 import { AppRoutingModule } from './app-routing.module';
+import { PlanetDivisionComponent } from './planet-division/planet-division.component';
+import { ResidentDivisionComponent } from './resident-division/resident-division.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { AppRoutingModule } from './app-routing.module';
     FormatDataCardPipe,
     FormatDataResidentPipe,
     PlanetPageComponent,
+    PlanetDivisionComponent,
+    ResidentDivisionComponent,
   ],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule],
   providers: [PlanetsService],
