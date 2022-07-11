@@ -1,0 +1,9 @@
+<div>
+  <h1 class="planet-page__title">{{ planet.name }}</h1>
+  <dl class="planet-page__list-parametrs">
+    <div class="list-parametr__item" *ngFor="let planetParametr of planet | appFormatDataCard">
+      <dt class="list-parametr__term">{{ planetParametr[0]}} -</dt>
+      <dd class="list-parametr__description">{{ planetParametr[1]}}</dd>
+    </div>
+  </dl>
+</div>

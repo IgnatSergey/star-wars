@@ -18,10 +18,7 @@ export class PlanetPageComponent implements OnInit {
 
   dataPlanet: Planet;
   id: string;
-  residentsCurrent: Resident[];
   residents: Resident[] = [];
-  genderFilterValue: string;
-  hasResidents: boolean = false;
   isLoadingPlanetError: boolean = false;
   isLoadingResidentsError: boolean = false;
 
@@ -32,14 +29,10 @@ export class PlanetPageComponent implements OnInit {
       .subscribe(
         (response: Planet) => {
           this.dataPlanet = response;
-          if (response.residents.length !== 0) {
-            this.hasResidents = true;
-          }
           response.residents.map((item: string) => {
             this.planetsService.getData(item).subscribe(
               (response: Resident) => {
                 this.residents = [...this.residents, response];
-                this.residentsCurrent = this.residents.slice();
               },
               (error) => {
                 this.isLoadingResidentsError = true;
@@ -51,15 +44,5 @@ export class PlanetPageComponent implements OnInit {
           this.isLoadingPlanetError = true;
         }
       );
-  }
-
-  filter(male: HTMLInputElement) {
-    this.residentsCurrent = this.residents.slice();
-    if (male.value === 'all') {
-      return;
-    }
-    this.residentsCurrent = this.residents.filter((item) => {
-      return item.gender === male.value;
-    });
   }
 }

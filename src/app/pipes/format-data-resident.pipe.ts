@@ -5,7 +5,8 @@ import { Resident } from '../services/planets.service';
   name: 'appFormatResidentPipe',
 })
 export class FormatDataResidentPipe implements PipeTransform {
-  excludedParameters = [
+
+  excludedParameters: string[] = [
     'films',
     'created',
     'edited',
@@ -14,8 +15,10 @@ export class FormatDataResidentPipe implements PipeTransform {
     'vehicles',
     'starships',
     'name',
-    'homeworld'
+    'homeworld',
   ];
+
+  loadingParametrs: string[][] = [['films', 'title']];
 
   transform(startData: Resident) {
     let data = Object.entries(startData);
